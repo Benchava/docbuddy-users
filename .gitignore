@@ -52,6 +52,7 @@ hs_err_pid*
 .idea/modules.xml
 .idea/*.iml
 .idea/modules
+.idea/vcs.xml
 
 # CMake
 cmake-build-*/
