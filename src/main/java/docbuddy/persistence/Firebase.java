@@ -407,7 +407,7 @@ public class Firebase {
 
     private StringEntity buildEntityFromDataMap(Map<String, Object> dataMap) throws FirebaseException, JacksonUtilityException {
 
-        String jsonData = JacksonUtility.GET_JSON_STRING_FROM_MAP(dataMap);
+        String jsonData = JacksonUtility.getJsonStringFromMap(dataMap);
 
         return this.buildEntityFromJsonData(jsonData);
     }
@@ -574,7 +574,7 @@ public class Firebase {
         Map<String, Object> body;
         try {
 
-            body = JacksonUtility.GET_JSON_STRING_AS_MAP(writer.toString());
+            body = JacksonUtility.getJsonStringAsMap(writer.toString());
 
         } catch (JacksonUtilityException jue) {
 

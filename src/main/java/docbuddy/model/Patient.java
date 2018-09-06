@@ -12,5 +12,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Patient extends User {
-    List<String> chronicIllnesses;
+    private List<String> chronicIllnesses;
 }

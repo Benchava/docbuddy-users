@@ -21,7 +21,7 @@ public class JacksonUtility {
      * @return the json-string representing the data, or an empty-string; will not return null
      * @throws JacksonUtilityException if there was an error converting the map-data into a json-string
      */
-    public static String GET_JSON_STRING_FROM_MAP(Map<String, Object> dataMap) throws JacksonUtilityException {
+    public static String getJsonStringFromMap(Map<String, Object> dataMap) throws JacksonUtilityException {
 
         /* NOTE: per Jackson-dox, the map must be of type <String, Object> */
 
@@ -56,7 +56,7 @@ public class JacksonUtility {
      * @throws JacksonUtilityException if there was an error converting the json-string into map-data
      */
     @SuppressWarnings("unchecked")
-    public static Map<String, Object> GET_JSON_STRING_AS_MAP(String jsonResponse) throws JacksonUtilityException {
+    public static Map<String, Object> getJsonStringAsMap(String jsonResponse) throws JacksonUtilityException {
 
         /* NOTE: @SuppressWarnings("unchecked") because Jackson-dox state that a JSON-Object will always return as
          * Map<String, Object>
@@ -65,7 +65,7 @@ public class JacksonUtility {
 
         if (jsonResponse == null || jsonResponse.trim().isEmpty()) {
             log.warn("jsonResponse was null/empty, returning empty map; was: '" + jsonResponse + "'");
-            return new HashMap<String, Object>(); // don't want to return null to avoid NPEs
+            return new HashMap<>(); // don't want to return null to avoid NPEs
         }
         jsonResponse = jsonResponse.trim();
 
@@ -89,7 +89,7 @@ public class JacksonUtility {
 
         // don't want to return null to avoid NPEs
         if (result == null) {
-            result = new LinkedHashMap<String, Object>();
+            result = new LinkedHashMap<>();
         }
 
         return result;
