@@ -2,7 +2,7 @@ package docbuddy.persistence;
 
 import com.google.firebase.FirebaseException;
 import docbuddy.exceptions.JacksonUtilityException;
-import docbuddy.responses.FirebaseResponse;
+import docbuddy.service.responses.FirebaseResponse;
 import docbuddy.util.JacksonUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
@@ -11,7 +11,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.*;
@@ -486,7 +486,7 @@ public class Firebase {
 
         try {
 
-            HttpClient client = new DefaultHttpClient();
+            HttpClient client = HttpClientBuilder.create().build();
             response = client.execute(request);
 
         } catch (Throwable t) {

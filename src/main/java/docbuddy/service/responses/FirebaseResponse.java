@@ -1,4 +1,4 @@
-package docbuddy.responses;
+package docbuddy.service.responses;
 
 import lombok.extern.slf4j.Slf4j;
 
