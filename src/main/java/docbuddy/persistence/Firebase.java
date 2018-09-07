@@ -37,7 +37,7 @@ public class Firebase {
 
 
     private String baseUrl = "https://docbuddy-dev.firebaseio.com";
-    private String secureToken = "zgkxnpOtH0Sd8m3u3iCCmcJDnvYSruwTlPmVEjzH";
+    private String secureToken = "";
     private List<NameValuePair> query;
 
     public Firebase() throws FirebaseException {
