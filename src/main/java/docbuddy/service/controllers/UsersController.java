@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.FirebaseException;
 import docbuddy.exceptions.DataNotFoundException;
 import docbuddy.exceptions.JacksonUtilityException;
+import docbuddy.exceptions.ServerException;
 import docbuddy.model.User;
 import docbuddy.persistence.Firebase;
 import docbuddy.service.responses.FirebaseResponse;
@@ -29,7 +30,7 @@ public class UsersController {
             this.firebaseManager = new Firebase();
         } catch (FirebaseException e) {
             log.error("There was an error trying to instantiate the Firebase manager.");
-            throw new RuntimeException(e);
+            throw new ServerException(e);
         }
     }
 
