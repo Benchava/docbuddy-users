@@ -5,19 +5,19 @@
 
 Note: This is a continuous WORK IN PROGRESS.
 
-SUMMARY
+##SUMMARY
 
 DocBuddy is a REST API developed as part of a test for implementing a small micro-services architecture.
 The complete set of micro-services are meant to work as a small system to manage Doctor-Client relationships and also to
 serve as a way of having a centralized clinical history for them.
 
 
-TECHNOLOGIES
+##TECHNOLOGIES
 
 DocBuddy is built using Java 8, Gradle, Spring-Boot, Lombok and Firebase among other technologies.
 
 
-HOW TO RUN IT
+##HOW TO RUN IT
 
 DocBuddy uses Spring-Boot so, once the project is cloned and built (using Gradle), all you have to do is run the 
 "bootRun" gradle task and the service will come up and be accessible in http://localhost:8080.
