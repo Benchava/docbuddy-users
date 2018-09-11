@@ -1,9 +1,9 @@
-package docbuddy.persistence;
+package docbuddy.users.persistence;
 
 import com.google.firebase.FirebaseException;
-import docbuddy.exceptions.JacksonUtilityException;
-import docbuddy.service.responses.FirebaseResponse;
-import docbuddy.util.JacksonUtility;
+import docbuddy.users.exceptions.JacksonUtilityException;
+import docbuddy.users.service.users.responses.FirebaseResponse;
+import docbuddy.users.util.JacksonUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

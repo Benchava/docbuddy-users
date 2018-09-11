@@ -1,4 +1,4 @@
-package docbuddy.exceptions;
+package docbuddy.users.exceptions;
 
 public class JacksonUtilityException extends Throwable {
 

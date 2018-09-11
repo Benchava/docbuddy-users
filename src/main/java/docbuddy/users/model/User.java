@@ -1,4 +1,4 @@
-package docbuddy.model;
+package docbuddy.users.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

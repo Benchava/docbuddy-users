@@ -1,4 +1,4 @@
-package docbuddy.exceptions;
+package docbuddy.users.exceptions;
 
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
