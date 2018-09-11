@@ -53,7 +53,7 @@ public class Firebase {
             throw new FirebaseException(msg);
         }
         this.baseUrl = baseUrl.trim();
-        query = new ArrayList<NameValuePair>();
+        query = new ArrayList<>();
         log.info("Initialized with base-url: " + this.baseUrl);
     }
 
@@ -65,7 +65,7 @@ public class Firebase {
         }
         this.secureToken = secureToken;
         this.baseUrl = baseUrl.trim();
-        query = new ArrayList<NameValuePair>();
+        query = new ArrayList<>();
         log.info("Initialized with base-url: " + this.baseUrl);
     }
 
@@ -104,9 +104,8 @@ public class Firebase {
         HttpResponse httpResponse = this.makeRequest(request);
 
         // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.GET, httpResponse);
 
-        return response;
+        return this.processResponse(FirebaseRestMethod.GET, httpResponse);
     }
 
     /**
@@ -142,10 +141,7 @@ public class Firebase {
         request.setEntity(this.buildEntityFromDataMap(data));
         HttpResponse httpResponse = this.makeRequest(request);
 
-        // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.PATCH, httpResponse);
-
-        return response;
+        return this.processResponse(FirebaseRestMethod.PATCH, httpResponse);
     }
 
     /**
@@ -174,10 +170,7 @@ public class Firebase {
         request.setEntity(this.buildEntityFromJsonData(jsonData));
         HttpResponse httpResponse = this.makeRequest(request);
 
-        // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.PATCH, httpResponse);
-
-        return response;
+        return this.processResponse(FirebaseRestMethod.PATCH, httpResponse);
     }
 
     /**
@@ -215,10 +208,7 @@ public class Firebase {
         request.setEntity(this.buildEntityFromDataMap(data));
         HttpResponse httpResponse = this.makeRequest(request);
 
-        // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.PUT, httpResponse);
-
-        return response;
+        return this.processResponse(FirebaseRestMethod.PUT, httpResponse);
     }
 
     /**
@@ -254,10 +244,7 @@ public class Firebase {
         request.setEntity(this.buildEntityFromJsonData(jsonData));
         HttpResponse httpResponse = this.makeRequest(request);
 
-        // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.PUT, httpResponse);
-
-        return response;
+        return this.processResponse(FirebaseRestMethod.PUT, httpResponse);
     }
 
     /**
@@ -301,10 +288,7 @@ public class Firebase {
         request.setEntity(this.buildEntityFromDataMap(data));
         HttpResponse httpResponse = this.makeRequest(request);
 
-        // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.POST, httpResponse);
-
-        return response;
+        return this.processResponse(FirebaseRestMethod.POST, httpResponse);
     }
 
     /**
@@ -346,10 +330,7 @@ public class Firebase {
         request.setEntity(this.buildEntityFromJsonData(jsonData));
         HttpResponse httpResponse = this.makeRequest(request);
 
-        // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.POST, httpResponse);
-
-        return response;
+        return this.processResponse(FirebaseRestMethod.POST, httpResponse);
     }
 
     /**
@@ -391,10 +372,7 @@ public class Firebase {
         HttpDelete request = new HttpDelete(url);
         HttpResponse httpResponse = this.makeRequest(request);
 
-        // process the response
-        FirebaseResponse response = this.processResponse(FirebaseRestMethod.DELETE, httpResponse);
-
-        return response;
+        return this.processResponse(FirebaseRestMethod.DELETE, httpResponse);
     }
 
 
@@ -606,7 +584,7 @@ public class Firebase {
         PATCH,
         PUT,
         POST,
-        DELETE;
+        DELETE
     }
 
 }
