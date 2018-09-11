@@ -1,7 +1,7 @@
-package docbuddy.util;
+package docbuddy.users.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import docbuddy.exceptions.JacksonUtilityException;
+import docbuddy.users.exceptions.JacksonUtilityException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.StringWriter;

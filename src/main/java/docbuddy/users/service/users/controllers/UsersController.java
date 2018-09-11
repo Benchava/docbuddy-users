@@ -1,15 +1,15 @@
-package docbuddy.service.controllers;
+package docbuddy.users.service.users.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.FirebaseException;
-import docbuddy.exceptions.DataNotFoundException;
-import docbuddy.exceptions.JacksonUtilityException;
-import docbuddy.exceptions.ServerException;
-import docbuddy.model.User;
-import docbuddy.persistence.Firebase;
-import docbuddy.service.responses.FirebaseResponse;
-import docbuddy.util.JacksonUtility;
+import docbuddy.users.exceptions.DataNotFoundException;
+import docbuddy.users.exceptions.JacksonUtilityException;
+import docbuddy.users.exceptions.ServerException;
+import docbuddy.users.model.User;
+import docbuddy.users.persistence.Firebase;
+import docbuddy.users.service.users.responses.FirebaseResponse;
+import docbuddy.users.util.JacksonUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
