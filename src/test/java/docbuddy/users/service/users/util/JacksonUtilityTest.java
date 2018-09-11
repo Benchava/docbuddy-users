@@ -19,21 +19,21 @@ public class JacksonUtilityTest {
     }
 
     @Test
-    public void getJsonStringFromMap_nullMap() throws JacksonUtilityException {
+    public void getJsonStringFromMapNullMap() throws JacksonUtilityException {
         String result = JacksonUtility.getJsonStringFromMap(null);
 
         Assert.assertEquals("", result);
     }
 
     @Test
-    public void getJsonStringFromMap_emptyMap() throws JacksonUtilityException {
-        String result = JacksonUtility.getJsonStringFromMap(TEST_MAP);
+    public void getJsonStringFromMapEmptyMap() throws JacksonUtilityException {
+        String result = JacksonUtility.getJsonStringFromMap(new HashMap<>());
 
         Assert.assertEquals("", result);
     }
 
     @Test
-    public void getJsonStringFromMap_validMap() throws JacksonUtilityException {
+    public void getJsonStringFromMapValidMap() throws JacksonUtilityException {
         TEST_MAP.put("testKey1", "testValue1");
 
         String result = JacksonUtility.getJsonStringFromMap(TEST_MAP);
@@ -42,21 +42,21 @@ public class JacksonUtilityTest {
     }
 
     @Test
-    public void getJsonStringAsMap_nulString() throws JacksonUtilityException {
+    public void getJsonStringAsMapNullString() throws JacksonUtilityException {
         Map<String, Object> result = JacksonUtility.getJsonStringAsMap(null);
 
         Assert.assertEquals(new HashMap<>(), result);
     }
 
     @Test
-    public void getJsonStringAsMap_emptyString() throws JacksonUtilityException {
+    public void getJsonStringAsMapEmptyString() throws JacksonUtilityException {
         Map<String, Object> result = JacksonUtility.getJsonStringAsMap("");
 
         Assert.assertEquals(new HashMap<>(), result);
     }
 
     @Test
-    public void getJsonStringAsMap_validString() throws JacksonUtilityException {
+    public void getJsonStringAsMapValidString() throws JacksonUtilityException {
         TEST_MAP.put("testKey1", "testValue1");
         Map<String, Object> result = JacksonUtility.getJsonStringAsMap(TEST_STRING);
 
