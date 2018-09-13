@@ -1,6 +1,6 @@
-package docbuddy.users.service.users.controllers;
+package docbuddy.users.service.controllers;
 
-import docbuddy.users.service.users.responses.HealthCheckResponse;
+import docbuddy.users.service.responses.HealthCheckResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
