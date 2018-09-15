@@ -7,6 +7,7 @@ import docbuddy.users.exceptions.DataNotFoundException;
 import docbuddy.users.exceptions.JacksonUtilityException;
 import docbuddy.users.exceptions.ServerException;
 import docbuddy.users.model.User;
+import docbuddy.users.persistence.BigQueryManager;
 import docbuddy.users.persistence.Firebase;
 import docbuddy.users.service.responses.FirebaseResponse;
 import docbuddy.users.util.JacksonUtility;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -49,6 +51,13 @@ public class UsersController {
         } else {
             throw new DataNotFoundException();
         }
+    }
+
+    @RequestMapping("/get/all")
+    public Map<String, Long> getAllUser() throws InterruptedException {
+        BigQueryManager bigQueryManager = new BigQueryManager();
+
+        return bigQueryManager.testBQ();
     }
 
     @RequestMapping("/update")
