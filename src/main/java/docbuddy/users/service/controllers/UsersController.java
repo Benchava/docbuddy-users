@@ -1,4 +1,4 @@
-package docbuddy.users.service.users.controllers;
+package docbuddy.users.service.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,7 @@ import docbuddy.users.exceptions.JacksonUtilityException;
 import docbuddy.users.exceptions.ServerException;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.Firebase;
-import docbuddy.users.service.users.responses.FirebaseResponse;
+import docbuddy.users.service.responses.FirebaseResponse;
 import docbuddy.users.util.JacksonUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
