@@ -8,6 +8,7 @@ import docbuddy.users.exceptions.JacksonUtilityException;
 import docbuddy.users.exceptions.ServerException;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.Firebase;
+import docbuddy.users.service.UserService;
 import docbuddy.users.service.responses.FirebaseResponse;
 import docbuddy.users.util.JacksonUtility;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 public class UsersController {
     private Firebase firebaseManager;
+    private UserService userService;
 
     public UsersController() {
+        this.userService = new UserService();
         try {
             this.firebaseManager = new Firebase();
         } catch (FirebaseException e) {
@@ -49,6 +53,11 @@ public class UsersController {
         } else {
             throw new DataNotFoundException();
         }
+    }
+
+    @RequestMapping("/get/all")
+    public List<User> getAllUser() throws InterruptedException {
+        return userService.getAllUsers();
     }
 
     @RequestMapping("/update")
