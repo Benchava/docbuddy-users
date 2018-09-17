@@ -9,7 +9,12 @@ import docbuddy.users.exceptions.ServerException;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.BigQueryManager;
 import docbuddy.users.persistence.Firebase;
+<<<<<<< HEAD:src/main/java/docbuddy/users/service/controllers/UsersController.java
 import docbuddy.users.service.responses.FirebaseResponse;
+=======
+import docbuddy.users.service.UserService;
+import docbuddy.users.service.users.responses.FirebaseResponse;
+>>>>>>> Added support for BigQuery. Also added a new layer, the Service layer.:src/main/java/docbuddy/users/service/users/controllers/UsersController.java
 import docbuddy.users.util.JacksonUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,15 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 public class UsersController {
     private Firebase firebaseManager;
+    private UserService userService;
 
     public UsersController() {
+        this.userService = new UserService();
         try {
             this.firebaseManager = new Firebase();
         } catch (FirebaseException e) {
@@ -54,10 +61,8 @@ public class UsersController {
     }
 
     @RequestMapping("/get/all")
-    public Map<String, Long> getAllUser() throws InterruptedException {
-        BigQueryManager bigQueryManager = new BigQueryManager();
-
-        return bigQueryManager.testBQ();
+    public List<User> getAllUser() throws InterruptedException {
+        return userService.getAllUsers();
     }
 
     @RequestMapping("/update")
