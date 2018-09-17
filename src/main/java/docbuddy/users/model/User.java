@@ -1,9 +1,6 @@
 package docbuddy.users.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlRootElement
+@Builder
 public class User {
     private String id;
     private boolean admin;

@@ -19,15 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 public class UsersController {
     private Firebase firebaseManager;
+    private UserService userService;
 
     public UsersController() {
+        this.userService = new UserService();
         try {
             this.firebaseManager = new Firebase();
         } catch (FirebaseException e) {
@@ -54,10 +56,8 @@ public class UsersController {
     }
 
     @RequestMapping("/get/all")
-    public Map<String, Long> getAllUser() throws InterruptedException {
-        BigQueryManager bigQueryManager = new BigQueryManager();
-
-        return bigQueryManager.testBQ();
+    public List<User> getAllUser() throws InterruptedException {
+        return userService.getAllUsers();
     }
 
     @RequestMapping("/update")
