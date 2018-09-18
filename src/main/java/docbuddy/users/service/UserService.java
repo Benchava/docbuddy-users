@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class UserService {
-    BigQueryManager bigQueryManager;
+    private BigQueryManager bigQueryManager;
 
     public UserService() {
         this.bigQueryManager = new BigQueryManager();
