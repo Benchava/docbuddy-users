@@ -1,47 +1,43 @@
 package docbuddy.users.service;
 
-import com.google.cloud.bigquery.FieldValueList;
-import com.google.cloud.bigquery.TableResult;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.BigQueryManager;
+import docbuddy.users.persistence.Result;
+import docbuddy.users.persistence.dao.UserDao;
+import docbuddy.users.persistence.dao.UserDaoImpl;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
 
 @Getter
 @Setter
 public class UserService {
     private BigQueryManager bigQueryManager;
+    private UserDao userDao;
 
     public UserService() {
         this.bigQueryManager = new BigQueryManager();
+        this.userDao = new UserDaoImpl();
     }
 
-    public List<User> getAllUsers() throws InterruptedException {
-        String query = "SELECT * FROM docbuddyDev.User LIMIT 10";
-        List<User> usersList = null;
+    public Long createUser(User user) {
+        return userDao.createUser(user);
+    }
 
-        TableResult result = bigQueryManager.executeQuery(query);
+    public User getUser(Long userId) throws SQLException {
+        return userDao.getUser(userId);
+    }
 
-        if (result.getTotalRows() > 0) {
-            usersList = new ArrayList<>();
-            for (FieldValueList row : result.iterateAll()) {
-                User user = User.builder()
-                        .id(row.get("ID").getStringValue())
-                        .admin(row.get("ADMIN").getBooleanValue())
-                        .doctor(row.get("DOCTOR").getBooleanValue())
-                        .firstName(row.get("FIRST_NAME").getStringValue())
-                        .lastName(row.get("LAST_NAME").getStringValue())
-                        .userName(row.get("USERNAME").getStringValue())
-                        .password(row.get("PASSWORD").getStringValue())
-                        .build();
+    public void updateUser(User user) {
+        userDao.updateUser(user);
+    }
 
-                usersList.add(user);
-            }
-        }
+    public void deleteUser(Long id) {
+        userDao.deleteUser(id);
+    }
 
-        return usersList;
+    public Result<User> getAllUsers() throws SQLException {
+        return userDao.getAllUsers("");
     }
 }

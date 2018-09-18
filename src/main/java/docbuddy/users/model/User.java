@@ -13,7 +13,7 @@ import java.util.UUID;
 @XmlRootElement
 @Builder
 public class User {
-    private String id;
+    private Long id;
     private boolean admin;
     private boolean doctor;
     private String userName;
@@ -24,4 +24,13 @@ public class User {
     private String birth;
     private List<String> specialties;
     private List<String> illnesses;
+
+    public static class Constants {
+        public static final String ADMIN = "admin";
+        public static final String DOCTOR = "doctor";
+        public static final String FIRST_NAME = "first_name";
+        public static final String LAST_NAME = "last_name";
+        public static final String USERNAME = "username";
+        public static final String PASSWORD = "password";
+    }
 }
