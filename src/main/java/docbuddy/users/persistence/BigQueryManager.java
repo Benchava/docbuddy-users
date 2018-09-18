@@ -1,6 +1,7 @@
 package docbuddy.users.persistence;
 
 import com.google.cloud.bigquery.*;
+import docbuddy.users.exceptions.ServerException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,11 +32,11 @@ public class BigQueryManager {
         queryJob = queryJob.waitFor();
 
         if (queryJob == null) {
-            throw new RuntimeException("Job no longer exists");
+            throw new ServerException("Job no longer exists");
         } else if (queryJob.getStatus().getError() != null) {
             // You can also look at queryJob.getStatus().getExecutionErrors() for all
             // errors, not just the latest one.
-            throw new RuntimeException(queryJob.getStatus().getError().toString());
+            throw new ServerException(queryJob.getStatus().getError().toString());
         }
 
         return queryJob.getQueryResults();
