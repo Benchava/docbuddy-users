@@ -1,81 +1,50 @@
 package docbuddy.users.service.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.firebase.FirebaseException;
-import docbuddy.users.exceptions.DataNotFoundException;
-import docbuddy.users.exceptions.JacksonUtilityException;
-import docbuddy.users.exceptions.ServerException;
 import docbuddy.users.model.User;
-import docbuddy.users.persistence.Firebase;
+import docbuddy.users.persistence.Result;
 import docbuddy.users.service.UserService;
-import docbuddy.users.service.responses.FirebaseResponse;
-import docbuddy.users.util.JacksonUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 public class UsersController {
-    private Firebase firebaseManager;
     private UserService userService;
 
     public UsersController() {
         this.userService = new UserService();
-        try {
-            this.firebaseManager = new Firebase();
-        } catch (FirebaseException e) {
-            log.error("There was an error trying to instantiate the Firebase manager.");
-            throw new ServerException(e);
-        }
     }
 
     @RequestMapping("/add")
-    public FirebaseResponse addUser(@RequestBody User user) throws FirebaseException, UnsupportedEncodingException, JsonProcessingException {
+    public Long addUser(@RequestBody User user) {
         log.info("About to insert object in Firebase.");
-        return firebaseManager.put(generateUserPath(user.getId()), new ObjectMapper().writeValueAsString(user));
+        return userService.createUser(user);
     }
 
     @RequestMapping("/get")
-    public User getUser(@RequestParam String id) throws IOException, FirebaseException, JacksonUtilityException {
-        FirebaseResponse response = firebaseManager.get(generateUserPath(id));
-
-        if (response.getCode() == 200 && response.getBody().size() > 0) {
-            return new ObjectMapper().readValue(JacksonUtility.getJsonStringFromMap(response.getBody()), User.class);
-        } else {
-            throw new DataNotFoundException();
-        }
+    public User getUser(@RequestParam Long id) throws SQLException {
+        return userService.getUser(id);
     }
 
     @RequestMapping("/get/all")
-    public List<User> getAllUser() throws InterruptedException {
+    public Result<User> getAllUser() throws SQLException {
         return userService.getAllUsers();
     }
 
     @RequestMapping("/update")
-    public FirebaseResponse updateUser(@RequestParam String id, @RequestBody User updatedUser) throws UnsupportedEncodingException, FirebaseException, JsonProcessingException {
+    public void updateUser(@RequestBody User updatedUser) {
         log.info("About to update object in Firebase.");
-        return firebaseManager.patch(generateUserPath(id), new ObjectMapper().writeValueAsString(updatedUser));
+        userService.updateUser(updatedUser);
     }
 
     @RequestMapping("/delete")
-    public FirebaseResponse deleteUser(@RequestParam String id) throws UnsupportedEncodingException, FirebaseException {
-        return firebaseManager.delete(generateUserPath(id));
-    }
-
-    private String generateUserPath(String id) {
-        if (id == null || id.isEmpty()) {
-            return "users/";
-        } else {
-            return "users/" + id + "/";
-        }
+    public void deleteUser(@RequestParam Long id) {
+        userService.deleteUser(id);
     }
 }
