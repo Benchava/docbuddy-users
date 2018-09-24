@@ -17,7 +17,6 @@ import java.sql.SQLException;
 @RequestMapping("/users")
 @Slf4j
 @NoArgsConstructor
-
 public class UsersController {
     @Autowired
     private UserService userService;
