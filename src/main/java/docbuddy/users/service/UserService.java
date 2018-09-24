@@ -7,18 +7,22 @@ import docbuddy.users.persistence.dao.UserDao;
 import docbuddy.users.persistence.dao.UserDaoImpl;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 
 @Getter
 @Setter
+@Service
 public class UserService {
     private BigQueryManager bigQueryManager;
+    @Autowired
     private UserDao userDao;
 
     public UserService() {
         this.bigQueryManager = new BigQueryManager();
-        this.userDao = new UserDaoImpl();
+
     }
 
     public Long createUser(User user) {
