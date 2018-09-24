@@ -4,10 +4,13 @@ import com.google.cloud.datastore.*;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.DatastoreManager;
 import docbuddy.users.persistence.Result;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Repository
 public class UserDaoImpl implements UserDao {
     private DatastoreManager datastoreManager;
     private KeyFactory userKeyFactory;
