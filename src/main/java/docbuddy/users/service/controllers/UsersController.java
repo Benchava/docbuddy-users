@@ -3,7 +3,9 @@ package docbuddy.users.service.controllers;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.Result;
 import docbuddy.users.service.UserService;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,12 +16,11 @@ import java.sql.SQLException;
 @RestController
 @RequestMapping("/users")
 @Slf4j
+@NoArgsConstructor
 public class UsersController {
+    @Autowired
     private UserService userService;
 
-    public UsersController() {
-        this.userService = new UserService();
-    }
 
     @RequestMapping("/add")
     public Long addUser(@RequestBody User user) {
