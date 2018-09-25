@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/auth")
 @Slf4j
@@ -22,7 +24,15 @@ public class AuthController {
 
     @RequestMapping("/login")
     @PostMapping
-    public LoginResponse login(@RequestBody LoginRequest login) {
-        return authService.login(login);
+    public LoginResponse login(HttpSession session, @RequestBody LoginRequest login) {
+        LoginResponse response =authService.login(login);
+        session.setAttribute("token", response.getToken());
+        return response;
+    }
+
+    @RequestMapping("/logout")
+    @PostMapping
+    public void logout(HttpSession session) {
+        session.invalidate();
     }
 }
