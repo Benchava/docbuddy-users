@@ -34,4 +34,6 @@ dependencies {
     compile("org.yaml:snakeyaml:1.18")
     compile("com.google.cloud:google-cloud-bigquery:1.40.0")
     compile("com.google.cloud:google-cloud-datastore:1.44.0")
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+
 }

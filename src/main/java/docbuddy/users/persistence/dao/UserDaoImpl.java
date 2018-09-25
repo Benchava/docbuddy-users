@@ -1,10 +1,20 @@
 package docbuddy.users.persistence.dao;
 
-import com.google.cloud.datastore.*;
+import com.google.cloud.datastore.Query;
+import docbuddy.users.exceptions.UserNotFoundException;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.DatastoreManager;
 import docbuddy.users.persistence.Result;
 import org.springframework.stereotype.Repository;
+import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
+import com.google.cloud.datastore.StructuredQuery.CompositeFilter;
+import com.google.cloud.datastore.KeyFactory;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.IncompleteKey;
+import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.Key;
+import com.google.cloud.datastore.Cursor;
+import com.google.cloud.datastore.QueryResults;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +83,24 @@ public class UserDaoImpl implements UserDao {
     public void deleteUser(Long userId) {
         Key key = userKeyFactory.newKey(userId);
         datastoreManager.getDatastoreClient().delete(key);
+    }
+
+    @Override
+    public User login(User user) {
+
+        Query<Entity> query = Query.newEntityQueryBuilder().setKind("User")
+                .setFilter(CompositeFilter.and(PropertyFilter.eq("username", user.getUserName()), PropertyFilter.eq("password", user.getPassword())
+                )).build();
+
+        QueryResults<Entity> queryResults = datastoreManager.getDatastoreClient().run(query);
+
+
+        if (!queryResults.hasNext()) {
+             throw new UserNotFoundException();
+        }
+        return entityToUser(queryResults.next());
+
+
     }
 
     @Override
