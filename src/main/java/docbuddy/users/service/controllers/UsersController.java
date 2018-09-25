@@ -22,7 +22,6 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping("/add")
     public Long addUser(@RequestBody User user) {
         log.info("About to insert object in Firebase.");
