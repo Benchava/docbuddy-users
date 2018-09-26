@@ -1,5 +1,6 @@
 package docbuddy.users.service.controllers;
 
+import docbuddy.users.config.session.TokenConstants;
 import docbuddy.users.service.AuthService;
 import docbuddy.users.service.request.LoginRequest;
 import docbuddy.users.service.responses.LoginResponse;
@@ -26,7 +27,7 @@ public class AuthController {
     @PostMapping
     public LoginResponse login(HttpSession session, @RequestBody LoginRequest login) {
         LoginResponse response =authService.login(login);
-        session.setAttribute("token", response.getToken());
+        session.setAttribute(TokenConstants.SESSION_TOKEN, response.getToken());
         return response;
     }
 
