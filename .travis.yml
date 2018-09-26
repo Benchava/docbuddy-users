@@ -1,1 +1,23 @@
 language: java
+
+cache:
+  directories:
+  - $HOME/google-cloud-sdk
+
+env:
+  global:
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
+script:
+- gcloud version || true
+- if [ ! -d $HOME/google-cloud-sdk/bin ]; then
+  rm -rf $HOME/google-cloud-sdk;
+  curl https://sdk.cloud.google.com | bash > /dev/null;
+  fi
+
+- source $HOME/google-cloud-sdk/path.bash.inc
+- gcloud version
+
+after_script:
+- gcloud beta emulators datastore start &
+- gcloud beta emulators datastore env-init
