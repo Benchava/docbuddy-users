@@ -44,7 +44,6 @@ public class UserDaoImpl implements UserDao {
                 .lastName(entity.getString(User.Constants.LAST_NAME))
                 .userName(entity.getString(User.Constants.USERNAME))
                 .password(entity.getString(User.Constants.PASSWORD))
-                .salt(entity.getString(User.Constants.SALT))
                 .build();
     }
 
@@ -60,7 +59,6 @@ public class UserDaoImpl implements UserDao {
                 .set(User.Constants.LAST_NAME, user.getLastName())
                 .set(User.Constants.USERNAME, user.getUserName())
                 .set(User.Constants.PASSWORD, user.getPassword())
-                .set(User.Constants.SALT, user.getSalt())
                 .build();
 
         Entity userEntity = datastoreManager.getDataStoreClient().add(incUserEntity);
