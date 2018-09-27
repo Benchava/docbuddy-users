@@ -3,31 +3,22 @@ package docbuddy.users.persistence.dao;
 import com.google.cloud.NoCredentials;
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.datastore.DatastoreOptions;
+import docbuddy.users.BaseTest;
 import docbuddy.users.exceptions.BadRequestException;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.DataStoreManager;
 import docbuddy.users.persistence.Result;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UserDaoImplTest {
+public class UserDaoImplTest extends BaseTest {
     private static UserDaoImpl userDao;
 
-    private static User TEST_USER;
-    private static final Long TEST_USER_ID = 7357L;
-    private static final String TEST_USER_FIST_NAME = "Test";
-    private static final String TEST_USER_LAST_NAME = "User";
-    private static final String TEST_USER_NAME = "testUserName";
-    private static final String TEST_PASSWORD = "testPassword";
-
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void prepare() {
         DatastoreOptions options = DatastoreOptions.newBuilder()
                 .setProjectId(DatastoreOptions.getDefaultProjectId())
                 .setHost("localhost:8081")
@@ -35,11 +26,9 @@ public class UserDaoImplTest {
                 .setRetrySettings(ServiceOptions.getNoRetrySettings())
                 .build();
 
-        DataStoreManager datastoreManager = new DataStoreManager(options.getService());
+        datastoreManager = new DataStoreManager(options.getService());
 
         userDao = new UserDaoImpl(datastoreManager);
-
-        TEST_USER = buildTestUser();
     }
 
     @Test
@@ -56,6 +45,36 @@ public class UserDaoImplTest {
         userDao.createUser(TEST_USER);
     }
 
+    @Test(expected = BadRequestException.class)
+    public void createUserNoUserPassword() {
+        TEST_USER.setPassword(null);
+
+        userDao.createUser(TEST_USER);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void getUserNoId() {
+        userDao.getUser(null);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void updateUserNoUserName() {
+        TEST_USER.setUserName(null);
+
+        userDao.updateUser(TEST_USER);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void updateUserNoUserPassword() {
+        TEST_USER.setPassword(null);
+
+        userDao.updateUser(TEST_USER);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void deleteUserNoId() {
+        userDao.deleteUser(null);
+    }
 
     @After
     public void cleanUp() {
@@ -66,17 +85,6 @@ public class UserDaoImplTest {
                 userDao.deleteUser(user.getId());
             }
         }
-    }
-
-
-    private static User buildTestUser() {
-        return User.builder()
-                .id(TEST_USER_ID)
-                .firstName(TEST_USER_FIST_NAME)
-                .lastName(TEST_USER_LAST_NAME)
-                .userName(TEST_USER_NAME)
-                .password(TEST_PASSWORD)
-                .build();
     }
 
 }

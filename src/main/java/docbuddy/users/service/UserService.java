@@ -1,10 +1,11 @@
 package docbuddy.users.service;
 
 import docbuddy.users.model.User;
-import docbuddy.users.persistence.BigQueryManager;
 import docbuddy.users.persistence.Result;
 import docbuddy.users.persistence.dao.UserDao;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,17 +15,11 @@ import java.sql.SQLException;
 @Getter
 @Setter
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserService {
-    private BigQueryManager bigQueryManager;
     @Autowired
     private UserDao userDao;
-
-
-
-    public UserService() {
-        this.bigQueryManager = new BigQueryManager();
-
-    }
 
     public Long createUser(User user) {
         return userDao.createUser(user);
