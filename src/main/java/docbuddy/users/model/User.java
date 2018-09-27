@@ -22,6 +22,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String birth;
+    private String salt;
     private List<String> specialties;
     private List<String> illnesses;
 
