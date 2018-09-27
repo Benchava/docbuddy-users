@@ -22,6 +22,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String birth;
+    private String salt;
     private List<String> specialties;
     private List<String> illnesses;
 
@@ -32,5 +33,6 @@ public class User {
         public static final String LAST_NAME = "last_name";
         public static final String USERNAME = "username";
         public static final String PASSWORD = "password";
+        public static final String SALT = "salt";
     }
 }

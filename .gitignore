@@ -73,3 +73,6 @@ out/
 
 # Gradle files
 .gradle/
+
+# Compiled generated files
+build/

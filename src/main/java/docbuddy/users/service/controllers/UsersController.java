@@ -3,6 +3,8 @@ package docbuddy.users.service.controllers;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.Result;
 import docbuddy.users.service.UserService;
+import docbuddy.users.util.BCryptPassword;
+import docbuddy.users.util.BCryptUtil;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,18 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BCryptUtil bCryptUtil;
+
     @RequestMapping("/add")
     public Long addUser(@RequestBody User user) {
+
+        BCryptPassword hashedPassword = bCryptUtil.encodePassword(user.getPassword());
+
+
+        user.setPassword(hashedPassword.getPassword());
+        user.setSalt(hashedPassword.getSalt());
+        
         log.info("About to insert object in Firebase.");
         return userService.createUser(user);
     }

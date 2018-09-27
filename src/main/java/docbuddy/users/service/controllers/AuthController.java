@@ -1,6 +1,5 @@
 package docbuddy.users.service.controllers;
 
-import docbuddy.users.config.session.TokenConstants;
 import docbuddy.users.service.AuthService;
 import docbuddy.users.service.request.LoginRequest;
 import docbuddy.users.service.responses.LoginResponse;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,15 +22,10 @@ public class AuthController {
 
     @RequestMapping("/login")
     @PostMapping
-    public LoginResponse login(HttpSession session, @RequestBody LoginRequest login) {
+    public LoginResponse login(@RequestBody LoginRequest login) {
         LoginResponse response =authService.login(login);
-        session.setAttribute(TokenConstants.SESSION_TOKEN, response.getToken());
         return response;
     }
 
-    @RequestMapping("/logout")
-    @PostMapping
-    public void logout(HttpSession session) {
-        session.invalidate();
-    }
+
 }

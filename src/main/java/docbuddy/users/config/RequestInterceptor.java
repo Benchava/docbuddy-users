@@ -12,10 +12,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
 @Component
 public class RequestInterceptor implements HandlerInterceptor {
@@ -31,17 +29,10 @@ public class RequestInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-
-        //Get session
-        HttpSession session = request.getSession();
-
-        //Perform Token Validation
-        String sessionToken = (String) session.getAttribute(TokenConstants.SESSION_TOKEN);
-
         String requestToken = request.getHeader(TokenConstants.HEADER_TOKEN);
 
         //TODO:: validate token expiration date
-        if (requestToken == null || !Objects.equals(sessionToken, requestToken)) {
+        if (requestToken == null) {
             throw new InvalidAccessException();
         }
 

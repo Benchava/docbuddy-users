@@ -4,7 +4,6 @@ import docbuddy.users.model.User;
 import docbuddy.users.persistence.BigQueryManager;
 import docbuddy.users.persistence.Result;
 import docbuddy.users.persistence.dao.UserDao;
-import docbuddy.users.persistence.dao.UserDaoImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,8 @@ public class UserService {
     private BigQueryManager bigQueryManager;
     @Autowired
     private UserDao userDao;
+
+
 
     public UserService() {
         this.bigQueryManager = new BigQueryManager();
