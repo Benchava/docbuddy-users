@@ -43,7 +43,14 @@ dependencies {
 
 jacoco {
     toolVersion = "0.8.0"
-    reportsDir = file("$buildDir/testCoverageReport")
+    reportsDir = file("$buildDir/estCoverageReport")
+}
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+    }
 }
 
 jacocoTestReport {
