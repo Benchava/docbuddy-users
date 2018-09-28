@@ -53,6 +53,8 @@ hs_err_pid*
 .idea/*.iml
 .idea/modules
 .idea/vcs.xml
+.idea/misc.xml
+.idea/compiler.xml
 
 # CMake
 cmake-build-*/
@@ -68,3 +70,6 @@ out/
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+# Gradle files
+.gradle/
