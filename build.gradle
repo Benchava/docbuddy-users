@@ -46,6 +46,13 @@ jacoco {
     reportsDir = file("$buildDir/testCoverageReport")
 }
 
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+    }
+}
+
 jacocoTestReport {
     reports {
         html.enabled = true
