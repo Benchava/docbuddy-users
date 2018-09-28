@@ -1,6 +1,7 @@
 package docbuddy.users.persistence.dao;
 
 import com.google.cloud.datastore.*;
+import com.google.cloud.datastore.StructuredQuery.CompositeFilter;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.common.base.Strings;
 import docbuddy.users.exceptions.BadRequestException;
@@ -8,7 +9,6 @@ import docbuddy.users.exceptions.UserNotFoundException;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.DataStoreManager;
 import docbuddy.users.persistence.Result;
-import docbuddy.users.util.BCryptUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,9 @@ public class UserDaoImpl implements UserDao {
     private KeyFactory userKeyFactory;
 
     @Autowired
-    private BCryptUtil bCryptUtil;
-
-    @Autowired
     public UserDaoImpl(DataStoreManager datastoreManager) {
         this.datastoreManager = datastoreManager;
-        this.userKeyFactory = datastoreManager.getDataStoreClient().newKeyFactory().setKind("User");
+        this.userKeyFactory = datastoreManager.getDatastoreClient().newKeyFactory().setKind("User");
     }
 
     private User entityToUser(Entity entity) {
@@ -61,7 +58,7 @@ public class UserDaoImpl implements UserDao {
                 .set(User.Constants.PASSWORD, user.getPassword())
                 .build();
 
-        Entity userEntity = datastoreManager.getDataStoreClient().add(incUserEntity);
+        Entity userEntity = datastoreManager.getDatastoreClient().add(incUserEntity);
         return userEntity.getKey().getId();
     }
 
@@ -71,7 +68,7 @@ public class UserDaoImpl implements UserDao {
             throw new BadRequestException("Bad request. User ID can't be null.");
         }
 
-        Entity userEntity = datastoreManager.getDataStoreClient().get(userKeyFactory.newKey(userId));
+        Entity userEntity = datastoreManager.getDatastoreClient().get(userKeyFactory.newKey(userId));
         return entityToUser(userEntity);
     }
 
@@ -88,7 +85,7 @@ public class UserDaoImpl implements UserDao {
                 .set(User.Constants.USERNAME, user.getUserName())
                 .set(User.Constants.PASSWORD, user.getPassword())
                 .build();
-        datastoreManager.getDataStoreClient().update(entity);
+        datastoreManager.getDatastoreClient().update(entity);
     }
 
     @Override
@@ -98,30 +95,23 @@ public class UserDaoImpl implements UserDao {
         }
 
         Key key = userKeyFactory.newKey(userId);
-        datastoreManager.getDataStoreClient().delete(key);
+        datastoreManager.getDatastoreClient().delete(key);
     }
 
     @Override
     public User login(User user) {
 
         Query<Entity> query = Query.newEntityQueryBuilder().setKind("User")
-                .setFilter(PropertyFilter.eq("username", user.getUserName()))
-                .build();
+                .setFilter(CompositeFilter.and(PropertyFilter.eq("username", user.getUserName()), PropertyFilter.eq("password", user.getPassword())
+                )).build();
 
-        QueryResults<Entity> queryResults = datastoreManager.getDataStoreClient().run(query);
+        QueryResults<Entity> queryResults = datastoreManager.getDatastoreClient().run(query);
 
 
         if (!queryResults.hasNext()) {
             throw new UserNotFoundException();
         }
-
-        User userFound = entityToUser(queryResults.next());
-
-        if (bCryptUtil.checkPassword(user.getPassword(), userFound.getPassword())) {
-
-
-            return userFound;
-        } else throw new UserNotFoundException();
+        return entityToUser(queryResults.next());
 
 
     }
@@ -139,7 +129,7 @@ public class UserDaoImpl implements UserDao {
                 .setStartCursor(startCursor)
                 .build();
 
-        QueryResults<Entity> resultList = datastoreManager.getDataStoreClient().run(query);
+        QueryResults<Entity> resultList = datastoreManager.getDatastoreClient().run(query);
         List<User> resultUsers = entitiesToUsers(resultList);
         Cursor cursor = resultList.getCursorAfter();
         if (cursor != null && resultUsers.size() == 10) {

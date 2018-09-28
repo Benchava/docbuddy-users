@@ -39,11 +39,10 @@ dependencies {
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
     compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
 
-
 }
 
 jacoco {
-    toolVersion = "0.7.9"
+    toolVersion = "0.8.0"
     reportsDir = file("$buildDir/testCoverageReport")
 }
 
