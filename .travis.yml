@@ -25,7 +25,6 @@ before_script:
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud version
 - gcloud beta emulators datastore start &
-- gcloud beta emulators datastore env-init
 
 after_success:
 - gradle test
