@@ -43,7 +43,7 @@ dependencies {
 
 jacoco {
     toolVersion = "0.8.0"
-    reportsDir = file("$buildDir/estCoverageReport")
+    reportsDir = file("$buildDir/testCoverageReport")
 }
 
 test {

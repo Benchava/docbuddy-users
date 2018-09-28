@@ -27,6 +27,5 @@ before_script:
 - gcloud beta emulators datastore start &
 
 after_success:
-- gradle test
 - gradle jacocoTestReport
 - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r build/testCoverageReport/test/jacocoTestReport.xml
