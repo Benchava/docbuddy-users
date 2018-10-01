@@ -1,19 +1,34 @@
 package docbuddy.users.persistence.dao;
 
 import com.google.cloud.datastore.*;
+import com.google.cloud.datastore.StructuredQuery.CompositeFilter;
+import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
+import com.google.common.base.Strings;
+import docbuddy.users.exceptions.BadRequestException;
+import docbuddy.users.exceptions.UserNotFoundException;
 import docbuddy.users.model.User;
-import docbuddy.users.persistence.DatastoreManager;
+import docbuddy.users.persistence.DataStoreManager;
 import docbuddy.users.persistence.Result;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Repository
+@Getter
+@Setter
 public class UserDaoImpl implements UserDao {
-    private DatastoreManager datastoreManager;
+
+    private DataStoreManager datastoreManager;
     private KeyFactory userKeyFactory;
 
-    public UserDaoImpl() {
-        this.datastoreManager = new DatastoreManager();
+    @Autowired
+    public UserDaoImpl(DataStoreManager datastoreManager) {
+        this.datastoreManager = datastoreManager;
         this.userKeyFactory = datastoreManager.getDatastoreClient().newKeyFactory().setKind("User");
     }
 
@@ -31,6 +46,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Long createUser(User user) {
+        validateUser(user);
+
         IncompleteKey key = userKeyFactory.newKey();
         FullEntity<IncompleteKey> incUserEntity = Entity.newBuilder(key)
                 .set(User.Constants.ADMIN, user.isAdmin())
@@ -47,12 +64,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUser(Long userId) {
+        if (userId == null) {
+            throw new BadRequestException("Bad request. User ID can't be null.");
+        }
+
         Entity userEntity = datastoreManager.getDatastoreClient().get(userKeyFactory.newKey(userId));
         return entityToUser(userEntity);
     }
 
     @Override
     public void updateUser(User user) {
+        validateUser(user);
         Key key = userKeyFactory.newKey(user.getId());
 
         Entity entity = Entity.newBuilder(key)
@@ -68,8 +90,30 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(Long userId) {
+        if (userId == null) {
+            throw new BadRequestException("Bad request. User ID can't be null.");
+        }
+
         Key key = userKeyFactory.newKey(userId);
         datastoreManager.getDatastoreClient().delete(key);
+    }
+
+    @Override
+    public User login(User user) {
+
+        Query<Entity> query = Query.newEntityQueryBuilder().setKind("User")
+                .setFilter(CompositeFilter.and(PropertyFilter.eq("username", user.getUserName()), PropertyFilter.eq("password", user.getPassword())
+                )).build();
+
+        QueryResults<Entity> queryResults = datastoreManager.getDatastoreClient().run(query);
+
+
+        if (!queryResults.hasNext()) {
+            throw new UserNotFoundException();
+        }
+        return entityToUser(queryResults.next());
+
+
     }
 
     @Override
@@ -102,5 +146,15 @@ public class UserDaoImpl implements UserDao {
             resultUsers.add(entityToUser(resultList.next()));
         }
         return resultUsers;
+    }
+
+    private void validateUser(User user) {
+        if (Strings.isNullOrEmpty(user.getUserName())) {
+            throw new BadRequestException(String.format("Bad request. User Name for user is %s.", user.getUserName()));
+        } else {
+            if (Strings.isNullOrEmpty(user.getPassword())) {
+                throw new BadRequestException(String.format("Bad request. Password for user is %s.", user.getPassword()));
+            }
+        }
     }
 }
