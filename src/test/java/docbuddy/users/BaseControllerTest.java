@@ -5,6 +5,7 @@ import docbuddy.users.persistence.dao.UserDaoImpl;
 import docbuddy.users.service.AuthService;
 import docbuddy.users.service.request.LoginRequest;
 import docbuddy.users.service.responses.LoginResponse;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class BaseControllerTest extends BaseTest {
     protected static User authenticatedUser;
     protected static String authenticatedToken;
 
-//    @BeforeClass
-//    public static void setUpUser() {
+    @BeforeClass
+    public static void setUpUser() {
 //        createUserForAuthentication();
 //
 //        LoginResponse loginResponse = authenticateUser();
@@ -38,14 +39,14 @@ public class BaseControllerTest extends BaseTest {
 //        if (loginResponse != null && !Strings.isNullOrEmpty(loginResponse.getToken())) {
 //            authenticatedToken = loginResponse.getToken();
 //        }
-//    }
+    }
 
     @Test
     public void test(){
         assertTrue(true);
     }
 
-    private static User buildUserForAuthentication() {
+    public static User buildUserForAuthentication() {
         return User.builder()
                 .admin(true)
                 .doctor(true)

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class UserServiceTest extends BaseTest {
-    private static UserService userService;
+    private static UserServiceImpl userService;
 
     @BeforeClass
     public static void prepare() throws SQLException {
@@ -32,7 +32,7 @@ public class UserServiceTest extends BaseTest {
 
         when(mockedUserDao.getAllUsers("")).thenReturn(new Result(userList));
 
-        userService = new UserService();
+        userService = new UserServiceImpl();
         userService.setUserDao(mockedUserDao);
     }
 
