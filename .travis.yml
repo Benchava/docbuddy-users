@@ -1,5 +1,9 @@
 language: java
 
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
   - $HOME/google-cloud-sdk
@@ -7,6 +11,8 @@ cache:
   - $HOME/.gradle/daemon      #Cache daemon logs
   - $HOME/.gradle/native      #Cache library downloaded from the gradle dependency
   - $HOME/.gradle/wrapper     #Cache the gradle
+  - $HOME/.gradle/caches/
+
 
 env:
   global:
