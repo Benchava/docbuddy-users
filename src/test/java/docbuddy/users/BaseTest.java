@@ -2,6 +2,7 @@ package docbuddy.users;
 
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.DataStoreManager;
+import docbuddy.users.service.responses.LoginResponse;
 import org.junit.BeforeClass;
 
 public class BaseTest {
@@ -11,11 +12,15 @@ public class BaseTest {
     protected static final String TEST_USER_LAST_NAME = "User";
     protected static final String TEST_USER_NAME = "testUserName";
     protected static final String TEST_PASSWORD = "testPassword";
+    protected static final String TEST_TOKEN = "klj12h3lk1j23klj12kl";
+    protected static final String TEST_SECRET = "testSecret";
     protected static DataStoreManager datastoreManager;
+    protected static LoginResponse response;
 
     @BeforeClass
     public static void setUp() {
         TEST_USER = buildTestUser();
+        response = LoginResponse.builder().token(TEST_TOKEN).userId(TEST_USER_ID).build();
     }
 
 

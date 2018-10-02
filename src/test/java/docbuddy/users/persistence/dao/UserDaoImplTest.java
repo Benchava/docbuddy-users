@@ -80,8 +80,8 @@ public class UserDaoImplTest extends BaseTest {
     public void cleanUp() {
         Result<User> users = userDao.getAllUsers("");
 
-        if (users != null && !users.result.isEmpty()) {
-            for (User user : users.result) {
+        if (users != null && !users.getResult().isEmpty()) {
+            for (User user : users.getResult()) {
                 userDao.deleteUser(user.getId());
             }
         }
