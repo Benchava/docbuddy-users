@@ -56,8 +56,21 @@ test {
 jacocoTestReport {
     reports {
         html.enabled = true
-        xml.enabled  = true
-        csv.enabled  = false
+        xml.enabled = true
+        csv.enabled = false
         html.destination file("${buildDir}/jacocoHtml")
     }
 }
+
+jacocoTestCoverageVerification {
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'docbuddy/users/config/session/*',
+                    'docbuddy/users/model/*',
+                    'docbuddy/users/Application.class'
+            ])
+        })
+    }
+}
+check.dependsOn jacocoTestCoverageVerification
