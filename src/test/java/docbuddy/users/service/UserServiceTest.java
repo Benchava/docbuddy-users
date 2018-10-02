@@ -57,7 +57,7 @@ public class UserServiceTest extends BaseTest {
         Result<User> result = userService.getAllUsers();
 
         assertNotNull(result);
-        assertTrue(result.result.size() > 0);
-        assertEquals(TEST_USER, result.result.get(0));
+        assertTrue(result.getResult().size() > 0);
+        assertEquals(TEST_USER, result.getResult().get(0));
     }
 }

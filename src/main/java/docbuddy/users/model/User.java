@@ -33,4 +33,13 @@ public class User {
         public static final String USERNAME = "username";
         public static final String PASSWORD = "password";
     }
+
+    @Override
+    public boolean equals(Object otherUser) {
+        if (!(otherUser instanceof User)) return false;
+
+        User other = (User) otherUser;
+
+        return other == this || this.id.equals(other.getId());
+    }
 }
