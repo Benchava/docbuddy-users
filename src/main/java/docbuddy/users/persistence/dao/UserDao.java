@@ -14,5 +14,7 @@ public interface UserDao {
 
     void deleteUser(Long userId);
 
+    User login(User user);
+
     Result<User> getAllUsers(String starterCursor) throws SQLException;
 }

@@ -1,6 +1,7 @@
 # DocBuddy
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/693624cacd6845eeb758fc5fe19c14cc)](https://app.codacy.com/app/nbantar/DocBuddy?utm_source=github.com&utm_medium=referral&utm_content=nbantar/DocBuddy&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/nbantar/docbuddy-users.svg?branch=master)](https://travis-ci.org/nbantar/docbuddy-users)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/ca5876604afd401cbfa084c159a37681)](https://www.codacy.com/app/nbantar/docbuddy-users?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nbantar/DocBuddy&amp;utm_campaign=Badge_Coverage)
 
 Note: This is a continuous WORK IN PROGRESS.
 
