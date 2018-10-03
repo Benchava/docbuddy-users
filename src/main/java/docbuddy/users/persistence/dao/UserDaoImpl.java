@@ -1,7 +1,6 @@
 package docbuddy.users.persistence.dao;
 
 import com.google.cloud.datastore.*;
-import com.google.cloud.datastore.StructuredQuery.CompositeFilter;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.common.base.Strings;
 import docbuddy.users.exceptions.BadRequestException;
@@ -9,6 +8,7 @@ import docbuddy.users.exceptions.UserNotFoundException;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.DataStoreManager;
 import docbuddy.users.persistence.Result;
+import docbuddy.users.util.BCryptUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ public class UserDaoImpl implements UserDao {
 
     private DataStoreManager datastoreManager;
     private KeyFactory userKeyFactory;
+
 
     @Autowired
     public UserDaoImpl(DataStoreManager datastoreManager) {
@@ -102,8 +103,7 @@ public class UserDaoImpl implements UserDao {
     public User login(User user) {
 
         Query<Entity> query = Query.newEntityQueryBuilder().setKind("User")
-                .setFilter(CompositeFilter.and(PropertyFilter.eq("username", user.getUserName()), PropertyFilter.eq("password", user.getPassword())
-                )).build();
+                .setFilter(PropertyFilter.eq("username", user.getUserName())).build();
 
         QueryResults<Entity> queryResults = datastoreManager.getDatastoreClient().run(query);
 
@@ -111,7 +111,14 @@ public class UserDaoImpl implements UserDao {
         if (!queryResults.hasNext()) {
             throw new UserNotFoundException();
         }
-        return entityToUser(queryResults.next());
+
+        User userFound = entityToUser(queryResults.next());
+
+        if(!BCryptUtil.checkPassword(user.getPassword(), userFound.getPassword())) {
+            throw new UserNotFoundException();
+        }
+
+        return userFound;
 
 
     }

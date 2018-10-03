@@ -1,13 +1,11 @@
 package docbuddy.users.util;
 
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.stereotype.Component;
 
-@Component
 public class BCryptUtil {
 
 
-    public BCryptPassword encodePassword(String plainText) {
+    public static BCryptPassword encodePassword(String plainText) {
 
         BCryptPassword hashedPassword = new BCryptPassword();
 
@@ -19,7 +17,7 @@ public class BCryptUtil {
 
     }
 
-    public boolean checkPassword(String plainText, String hashedPassword) {
+    public static boolean checkPassword(String plainText, String hashedPassword) {
         return BCrypt.checkpw(plainText, hashedPassword);
     }
 }
