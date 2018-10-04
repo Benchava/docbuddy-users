@@ -50,7 +50,7 @@ public class UsersControllerTest extends BaseControllerTest {
 
     @Test
     public void createUserSuccess() throws Exception {
-        MockHttpServletResponse controllerResponse = mvc.perform(put("/users/add")
+        MockHttpServletResponse controllerResponse = mvc.perform(put("/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(mapper.writeValueAsString(TEST_USER)))
@@ -64,7 +64,7 @@ public class UsersControllerTest extends BaseControllerTest {
 
     @Test
     public void createUserNoIdSuccess() throws Exception {
-        MockHttpServletResponse controllerResponse = mvc.perform(put("/users/add")
+        MockHttpServletResponse controllerResponse = mvc.perform(put("/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
@@ -76,7 +76,7 @@ public class UsersControllerTest extends BaseControllerTest {
 
     @Test
     public void getUserSuccess() throws Exception {
-        MockHttpServletResponse controllerResponse = mvc.perform(get("/users/get")
+        MockHttpServletResponse controllerResponse = mvc.perform(get("/get")
                 .param("id", TEST_USER_ID.toString()))
                 .andDo(print())
                 .andReturn().getResponse();
@@ -88,7 +88,7 @@ public class UsersControllerTest extends BaseControllerTest {
 
     @Test
     public void getUserNoIdSuccess() throws Exception {
-        MockHttpServletResponse controllerResponse = mvc.perform(get("/users/get"))
+        MockHttpServletResponse controllerResponse = mvc.perform(get("/get"))
                 .andDo(print())
                 .andReturn().getResponse();
 
@@ -98,7 +98,7 @@ public class UsersControllerTest extends BaseControllerTest {
 
     @Test
     public void getAllUsersSuccess() throws Exception {
-        MockHttpServletResponse controllerResponse = mvc.perform(get("/users/get/all"))
+        MockHttpServletResponse controllerResponse = mvc.perform(get("/get/all"))
                 .andDo(print())
                 .andReturn().getResponse();
 
@@ -115,7 +115,7 @@ public class UsersControllerTest extends BaseControllerTest {
 
     @Test
     public void updateUsersSuccess() throws Exception {
-        MockHttpServletResponse controllerResponse = mvc.perform(patch("/users/update")
+        MockHttpServletResponse controllerResponse = mvc.perform(patch("/update")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(TEST_USER)))
                 .andDo(print())
@@ -127,7 +127,7 @@ public class UsersControllerTest extends BaseControllerTest {
 
     @Test
     public void deleteUsersSuccess() throws Exception {
-        MockHttpServletResponse controllerResponse = mvc.perform(delete("/users/delete")
+        MockHttpServletResponse controllerResponse = mvc.perform(delete("/delete")
                 .param("id", TEST_USER_ID.toString()))
                 .andDo(print())
                 .andReturn().getResponse();
