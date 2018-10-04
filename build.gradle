@@ -53,6 +53,7 @@ dependencies {
     compile group: 'com.google.cloud', name: 'google-cloud-datastore', version: '1.44.0'
     compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
     compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
+    compile group: 'org.springframework.cloud', name:'spring-cloud-starter-netflix-eureka-client'    
     compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '+'
     testCompile group: 'com.google.appengine', name:'appengine-testing', version:'+'
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: '+'
