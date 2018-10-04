@@ -7,13 +7,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
-<<<<<<< HEAD
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-
-=======
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("com.google.cloud.tools:appengine-gradle-plugin:1.+")
->>>>>>> a68ea76a7b28e59e01281ae1749fd3f152997432
     }
 }
 
@@ -46,20 +42,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-<<<<<<< HEAD
-    compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    compileOnly("org.projectlombok:lombok:1.18.2")
-    compile("org.apache.httpcomponents:httpcore:4.4.1")
-    compile("org.apache.httpcomponents:httpclient:4.5")
-    compile("org.yaml:snakeyaml:1.18")
-    compile("com.google.cloud:google-cloud-bigquery:1.40.0")
-    compile("com.google.cloud:google-cloud-datastore:1.44.0")
-    compile("com.google.guava:guava:26.0-jre")
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-=======
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
 
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+   
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.1'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
@@ -67,11 +52,8 @@ dependencies {
     compile group: 'com.google.cloud', name: 'google-cloud-bigquery', version: '1.40.0'
     compile group: 'com.google.cloud', name: 'google-cloud-datastore', version: '1.44.0'
     compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
->>>>>>> a68ea76a7b28e59e01281ae1749fd3f152997432
-    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
     compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
     compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '+'
-
     testCompile group: 'com.google.appengine', name:'appengine-testing', version:'+'
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: '+'
     testCompile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '+'
