@@ -1,6 +1,11 @@
 package docbuddy.users.model;
 
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
