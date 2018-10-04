@@ -1,10 +1,13 @@
 buildscript {
+    ext {
+        springBootVersion = '2.0.5.RELEASE'
+    }
     repositories {
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("com.google.cloud.tools:appengine-gradle-plugin:1.+")
     }
 }
@@ -39,7 +42,7 @@ targetCompatibility = 1.8
 
 dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
-
+   
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.1'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
@@ -72,6 +75,13 @@ jacoco {
     toolVersion = "0.8.0"
     reportsDir = file("$buildDir/testCoverageReport")
 }
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.SR1'
+    }
+}
+
 
 test {
     jacoco {
