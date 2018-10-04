@@ -7,13 +7,19 @@ import java.sql.SQLException;
 
 public interface UserService {
 
-    public Long createUser(User user);
+    Long createUser(User user);
 
-    public User getUser(Long userId) throws SQLException;
+    User getUser(Long userId) throws SQLException;
+    
+    User getUser(User user);
+    
+    void updateUser(User user);
 
-    public void updateUser(User user);
+    void deleteUser(Long id);
 
-    public void deleteUser(Long id);
-
-    public Result<User> getAllUsers() throws SQLException;
+    Result<User> getAllUsers() throws SQLException;
+    
+    
+    
+    
 }

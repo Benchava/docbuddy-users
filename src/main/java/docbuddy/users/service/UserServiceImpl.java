@@ -40,4 +40,9 @@ public class UserServiceImpl implements  UserService{
     public Result<User> getAllUsers() throws SQLException {
         return userDao.getAllUsers("");
     }
+
+	@Override
+	public User getUser(User user) {
+		return userDao.login(user);
+	}
 }

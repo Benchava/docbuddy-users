@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan({"docbuddy.users.service", "docbuddy.users.persistence.dao", "docbuddy.users.service.controllers", "docbuddy.users.persistence"})
+@ComponentScan({"docbuddy.users.service", "docbuddy.users.persistence.dao", "docbuddy.users.service.controllers", "docbuddy.users.persistence", "docbuddy.util"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
