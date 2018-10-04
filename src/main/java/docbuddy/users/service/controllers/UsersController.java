@@ -3,6 +3,8 @@ package docbuddy.users.service.controllers;
 import docbuddy.users.model.User;
 import docbuddy.users.persistence.Result;
 import docbuddy.users.service.UserService;
+import docbuddy.users.service.request.LoginRequest;
+import docbuddy.users.service.responses.LoginResponse;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 
 @RestController
-@RequestMapping("/users")
 @Slf4j
 @NoArgsConstructor
 public class UsersController {
@@ -43,5 +44,11 @@ public class UsersController {
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public void deleteUser(@RequestParam Long id) {
         userService.deleteUser(id);
+    }
+    
+    @RequestMapping(value = "/find", method = RequestMethod.POST) 
+    public User checkUser(@RequestBody User userRequest) {
+    	return userService.getUser(userRequest);
+    	
     }
 }

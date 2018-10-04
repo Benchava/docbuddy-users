@@ -22,7 +22,7 @@ import java.util.Date;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Value("${jwt.secret}")
+//    @Value("${jwt.secret}")
     private String secret;
 
 

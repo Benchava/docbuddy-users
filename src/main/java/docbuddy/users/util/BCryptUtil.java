@@ -11,7 +11,7 @@ public class BCryptUtil {
 
         hashedPassword.setSalt(BCrypt.gensalt());
 
-        hashedPassword.setPassword(BCrypt.hashpw(plainText, hashedPassword.getSalt()));
+        hashedPassword.setPassword(BCrypt.hashpw(plainText, BCrypt.gensalt()));
 
         return hashedPassword;
 
