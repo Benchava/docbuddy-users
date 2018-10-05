@@ -1,5 +1,6 @@
 package docbuddy.users.util;
 
+import docbuddy.users.exceptions.UserNotFoundException;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class BCryptUtil {
@@ -18,6 +19,10 @@ public class BCryptUtil {
     }
 
     public static boolean checkPassword(String plainText, String hashedPassword) {
-        return BCrypt.checkpw(plainText, hashedPassword);
+        try {
+            return BCrypt.checkpw(plainText, hashedPassword);
+        } catch (IllegalArgumentException iae) {
+            throw new UserNotFoundException();
+        }
     }
 }

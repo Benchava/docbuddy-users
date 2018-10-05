@@ -44,7 +44,7 @@ targetCompatibility = 1.8
 dependencies {
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
-   
+
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.1'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
@@ -53,9 +53,9 @@ dependencies {
     compile group: 'com.google.cloud', name: 'google-cloud-datastore', version: '1.44.0'
     compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
     compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
-    compile group: 'org.springframework.cloud', name:'spring-cloud-starter-netflix-eureka-client'    
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
     compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '+'
-    testCompile group: 'com.google.appengine', name:'appengine-testing', version:'+'
+    testCompile group: 'com.google.appengine', name: 'appengine-testing', version: '+'
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: '+'
     testCompile group: 'com.google.appengine', name: 'appengine-tools-sdk', version: '+'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
@@ -85,6 +85,12 @@ dependencyManagement {
 
 
 test {
+    
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+    
     jacoco {
         append = false
         destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
@@ -98,17 +104,15 @@ jacocoTestReport {
         csv.enabled = false
         html.destination file("${buildDir}/jacocoHtml")
     }
-}
-
-jacocoTestCoverageVerification {
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
-                    'docbuddy/users/config/session/*',
+                    'docbuddy/users/config/session/**',
                     'docbuddy/users/model/*',
                     'docbuddy/users/Application.class'
             ])
         })
     }
 }
+
 check.dependsOn jacocoTestCoverageVerification
