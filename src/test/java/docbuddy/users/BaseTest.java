@@ -24,7 +24,7 @@ public class BaseTest {
     }
 
 
-    private static User buildTestUser() {
+    protected static User buildTestUser() {
         return User.builder()
                 .id(TEST_USER_ID)
                 .firstName(TEST_USER_FIST_NAME)
